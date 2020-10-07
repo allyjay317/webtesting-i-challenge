@@ -36,5 +36,17 @@ function repair(item) {
 }
 
 function get(item) {
-  return { ...item }
+
+  if (item) {
+    const newItem = { ...item }
+    if (newItem.name.match(/(\[\+[0-9]+\])/)) {
+      newItem.name = newItem.name.split(' ')[1]
+    }
+    if (newItem.enhancement === 0) {
+      return newItem
+    }
+    newItem.name = `[+${newItem.enhancement}] ${newItem.name}`
+    return newItem
+  }
+  else return null
 }

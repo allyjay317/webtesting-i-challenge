@@ -80,5 +80,22 @@ describe('enhancer', () => {
       expect(failure.enhancement).toBe(15)
     });
   });
-
+  describe('get()', () => {
+    it('should not change the name if the enhancement level is 0', () => {
+      const test = {
+        ...item,
+        enhancement: 0
+      }
+      const get = enhancer.get(test)
+      expect(get.name).toBe(item.name)
+    });
+    it('should change the name to [+${enhancement}] ${name} if enhancement level is greater than 0', () => {
+      const test = {
+        ...item,
+        enhancement: 10
+      }
+      const get = enhancer.get(test)
+      expect(get.name).toMatch(/(\[\+[0-9]+\]) [Nn]arsil/)
+    });
+  });
 });
